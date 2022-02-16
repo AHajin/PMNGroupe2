@@ -1,0 +1,22 @@
+{
+  "name": "pmngroupe2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AHajin/PMNGroupe2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AHajin/PMNGroupe2/issues"
+  },
+  "homepage": "https://github.com/AHajin/PMNGroupe2#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
+}
