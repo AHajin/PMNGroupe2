@@ -1,15 +1,30 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const token = 'OTQzNDI4NjY1OTk0MjQ4MjIy.Ygy6ag.8IrXOjs_9WmN76i36b1RGXXnuWg';
+// Require the necessary discord.js classes
+const { Client, Intents } = require('discord.js');
+const { token } = require('./config.json');
 
+// Create a new client instance
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+// When the client is ready, run this code (only once)
 client.once('ready', () => {
-    console.log('Félicitations, votre bot Discord a été correctement initialisé !');
+    console.log('Ready!');
 });
 
-client.login(token);
 
-client.on("message", message => {
-    if (message.content === "!ping") {
-        message.channel.send("Pong.")
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isCommand()) return;
+
+    const { commandName } = interaction;
+
+    if (commandName === 'ping') {
+        await interaction.reply('Pong!');
+    } else if (commandName === 'server') {
+        await interaction.reply('Server info.');
+    } else if (commandName === 'user') {
+        await interaction.reply('User info.');
     }
-})
+});
+
+
+// Login to Discord with your client's token
+client.login(token);
