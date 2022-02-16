@@ -7,6 +7,7 @@ const commands = [
     new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
     new SlashCommandBuilder().setName('server').setDescription('Replies with server info!'),
     new SlashCommandBuilder().setName('user').setDescription('Replies with user info!'),
+    new SlashCommandBuilder().setName('meetup').setDescription('Replies in direct message')
 ]
     .map(command => command.toJSON());
 
