@@ -58,14 +58,14 @@ console.log('Event');
             console.log(date)
 
 
-            channel.send(`**id_User : ${msg.author.id},\nUsername : ${msg.author.username},\nmessageContent : ${msg.content},\ndate : ${date}\n\n\n**`);
+            //channel.send(`**id_User : ${msg.author.id},\nUsername : ${msg.author.username},\nmessageContent : ${msg.content},\ndate : ${date}\n\n\n**`);
             /*response.response.push({id_user : msg.author.id,name_user: msg.author.username, response_obj : msg.content, timestamp: msg.createdTimestamp});
             writeJson();*/
         //}
 
 response.response.push({id_user : msg.author.id,name_user: msg.author.username, response_obj : msg.content, time: date});
 writeJson();
-        const sql = `INSERT INTO response (id_user, name_user, response_obj, time) VALUES ('${msg.author.id}', '${msg.author.username}', '${msg.content}', '${msg.createdTimestamp}')`;
+        const sql = `INSERT INTO response (id_user, name_user, response_obj, time) VALUES ("${msg.author.id}", "${msg.author.username}", "${msg.content}", "${msg.createdTimestamp}")`;
         try{
             con.query(sql)
         }catch (e) {
@@ -100,7 +100,7 @@ client.on('interactionCreate',  interaction => {
                 // This method might fail because of the member's privacy settings, so we're using .catch
 
                 if(members.id !== '943444812747669504'&& members.id !== '159985870458322944' && members.id !== '432610292342587392' && members.id !== '468281173072805889' && members.id !== '571027211407196161' && members.id !== '887361046032023562' ){
-                    //members.send("What did you do yesterday ?");
+                    members.send("What did you do yesterday ?");
                     console.log(`${members.user.username} have been DMed`);
                     console.log(members.user.id,members.user.username,members.user.tag)
                 }
