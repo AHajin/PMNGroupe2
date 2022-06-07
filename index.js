@@ -2,9 +2,13 @@
 const { Client, Intents } = require('discord.js');
 const fileSystem = require("fs")
 const { token, guildId, host,user,password, database} = require('./config.json');
+let CronJob = require('cron').CronJob;
 let mysql = require('mysql');
+
+
 let step = null
 const { userMention, memberNicknameMention, channelMention, roleMention } = require('@discordjs/builders');
+const cron = require("cron");
 let workers = {
     worker: []
 }
@@ -98,8 +102,6 @@ client.once('ready', () => {
 
 client.on("messageCreate", msg =>{
     const channel = client.channels.cache.find(channel => channel.id === `959904868355674193`)
-
-
     if(msg.channel.type === 'DM' && msg.author.id !== '943444812747669504') {
         console.log("event")
         stepVerif(msg);
@@ -111,6 +113,7 @@ client.on("messageCreate", msg =>{
 client.on('interactionCreate',  interaction => {
 
     if (!interaction.isCommand()) return;
+    const channel = client.channels.cache.find(channel => channel.id === `983719112935096391`)
 
     const { commandName, userId} = interaction;
 
@@ -118,14 +121,14 @@ client.on('interactionCreate',  interaction => {
         interaction.reply(`Meetup launched!`);
         step = 1
         console.log(step);
-        //console.log(interaction.guild.members.list()) //debug
-// First use guild.members.fetch to make sure all members are cached
-        interaction.guild.members.fetch({ withPresences: true }).then(members =>{
-            members.forEach(members => { // Looping through each member of the guild.
-                // Trying to send a message to the member.
-                // This method might fail because of the member's privacy settings, so we're using .catch
+        let scheduledMessage = new cron.CronJob('30 05 01 * * 1-5', () => {
+            channel.send(`Meetup is going on`)
+            interaction.guild.members.fetch({ withPresences: true }).then(members =>{
+                members.forEach(members => { // Looping through each member of the guild.
+                    // Trying to send a message to the member.
+                    // This method might fail because of the member's privacy settings, so we're using .catch
 
-                if(members.id !== '943444812747669504' && members.id !== '159985870458322944' && members.id !== '432610292342587392' && members.id !== '468281173072805889' && members.id !== '571027211407196161' && members.id !== '887361046032023562' ){
+                    if(members.id !== '943444812747669504' && members.id !== '159985870458322944' && members.id !== '432610292342587392' && members.id !== '468281173072805889' && members.id !== '571027211407196161' && members.id !== '887361046032023562' ){
 
 
 
@@ -138,20 +141,23 @@ client.on('interactionCreate',  interaction => {
                             });
                         });
 
-                    console.log(`${members.user.username} have been DMed`);
-                    console.log(members.user.id,members.user.username,members.user.tag)
-                    workers.worker.push({id_user : members.id,name_user: members.user.username, step: 1});
-                    writeJsonWorkers();
-                    members.send("What did you do yesterday ?").catch(e => console.error(`Couldnt DM member ${members.user.id,members.user.username,members.user.tag}`));
+                        console.log(`${members.user.username} have been DMed`);
+                        console.log(members.user.id,members.user.username,members.user.tag)
+                        workers.worker.push({id_user : members.id,name_user: members.user.username, step: 1});
+                        writeJsonWorkers();
+                        //members.send("What did you do yesterday ?").catch(e => console.error(`Couldnt DM member ${members.user.id,members.user.username,members.user.tag}`));
 
-                }
+                    }
 
-                else{
-                     console.log(`couldnt dm ${members.id}`)// DM closed or Bot himself
-
-                }
+                    else{
+                        console.log(`couldnt dm ${members.id}`)// DM closed or Bot himself
+                    }
+                });
             });
         });
+
+        // When you want to start it, use:
+        scheduledMessage.start()
     }else if (commandName === 'cheerosteam') {
         interaction.reply(`cheeros launched!`);
         //console.log(interaction.guild.members.list()) //debug
@@ -161,14 +167,14 @@ client.on('interactionCreate',  interaction => {
                 // Trying to send a message to the member.
                 // This method might fail because of the member's privacy settings, so we're using .catch
 
-                if(members.id === '209822631900217344' && members.id !== '943444812747669504' && members.id !== '159985870458322944' && members.id !== '432610292342587392' && members.id !== '468281173072805889' && members.id !== '571027211407196161' && members.id !== '887361046032023562' ) {
-                    members.send(`${interaction.user.username} want to cheers you, keep up the good work !`).catch(e => console.error(`Couldnt DM member ${msg.author.tag}`));
+                if(members.id !== '862102568146567188' && members.id !== '943444812747669504' && members.id !== '159985870458322944' && members.id !== '432610292342587392' && members.id !== '468281173072805889' && members.id !== '571027211407196161' && members.id !== '887361046032023562' ) {
+                    members.send(`${interaction.user.username} want to cheers you, keep up the good work !`).catch(e => console.error(`Couldnt DM member ${members.id}\n${members.nickname}`));
                     console.log(`${members.user.username} have been DMed`);
                     console.log(members.user.id, members.user.username, members.user.tag)
                 }
 
             else{
-                    console.log(`couldnt dm ${members.id}`)// DM closed or Bot himself
+                    console.log(`couldnt dm ${members.id}Their DM is closed or is a bot.`)// DM closed or Bot himself
 
                 }
             });
