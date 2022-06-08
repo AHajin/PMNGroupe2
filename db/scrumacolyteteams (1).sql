@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 07 juin 2022 à 19:23
+-- Généré le : mer. 08 juin 2022 à 11:54
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `scrumacolyteslack`
+-- Base de données : `scrumacolyteteams`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `response` (
   `id_user` bigint(50) NOT NULL,
   `name_user` varchar(80) NOT NULL,
   `response_obj` text NOT NULL,
-  `time` time NOT NULL,
+  `time` datetime NOT NULL,
   `step` int(11) NOT NULL,
   PRIMARY KEY (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
