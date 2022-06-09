@@ -28,4 +28,4 @@ ScrumAcolyte is discord bot to help your team collaborate easily, help with chec
 - The bot can make daily meetup, by sending in a channel, /meetup, sending a DM for all members of a server everyday at the time you chose, you can add bots id into filters to get rid of them.
 - You can launch a cheerosteam, like a kudos, it make a dm to all members of a server to cheers for them.
 - By using a database, like the template we added into the git, you receive the responses and the workers, and by using a dashboard, getting all informations.
-- 
+- The database to use is the one who is at the base of the git, not those in the db directory.
