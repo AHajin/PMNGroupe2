@@ -1,0 +1,9 @@
+{
+  "clientId": "ClientId of your bot",
+  "token": "its token",
+  "guildId": "ID of your test server",
+  "host": "Host of you database",
+  "user": "user",
+  "password": "password",
+  "database": "name of the database"
+}
