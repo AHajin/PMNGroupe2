@@ -8,7 +8,8 @@ ScrumAcolyte is discord bot to help your team collaborate easily, help with chec
 # Requirements:
 
 - Remember that the bot need ```config.json``` file to work, a template of config.json is available in the git.
-- The bot is made in JavaScript, don't forget to install nodeJS before using it
+- The bot is made in JavaScript, don't forget to install nodeJS before using it.
+- We used NPM, CRON & MYSQL package to make the bot, dont forget to install these packages or the bot wont work at all.
 
 # To setup the project :
 
