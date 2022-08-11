@@ -1,0 +1,53 @@
+version: '3'
+
+
+services:
+
+  discord-bot:
+
+    build: .
+
+    depends_on:
+
+      - MySQL
+
+    volumes:
+
+      - "/usr/src/bot/node_modules"
+
+    ports:
+
+      - "8080:8080"
+
+    environment:
+
+      SQL_DB_USERNAME: "${SQL_DB_USERNAMe}"
+
+      SQL_DB_PASSWORD: "${SQL_DB_PASSWORD}"
+
+      SQL_PORT: "${SQL_PORT}"
+
+      DISCORD_API_TOKEN: "${DISCORD_API_TOKEN}"
+
+      DISCORD_APP_ID: "${DISCORD_APP_ID}"
+
+
+  mysql:
+
+    image: mysql
+
+    volumes:
+
+      - "./mysql:/data/db"
+
+    ports:
+
+      - "${SQL_PORT}:${SQL_PORT}"
+
+    restart: always
+
+    environment:
+
+      SQL_INITDB_DB_USERNAME: "${SQL_DB_USERNAME}"
+
+      DQL_INITDB_DB_PASSWORD: "${SQL_DB_PASSWORD}"
